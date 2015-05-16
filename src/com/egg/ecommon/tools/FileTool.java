@@ -2,15 +2,6 @@ package com.egg.ecommon.tools;
 
 /**
  * 文件工具类
- * <p>Title: FileUtil.java</p>
- * <p>Description: FileUtil</p>
- * <p>Copyright: Copyright(c) 2013，保留所有权利。</p>
- * <p>Company: 班班通（天津）科技发展有限公司</p>
- * @author MXD
- * @version 1.0
- * ======================== change log ==========================
- * 2014-3-13 上午10:54:18 Create File
- * ======================== change log ==========================
  */
 import java.io.Closeable;
 import java.io.File;

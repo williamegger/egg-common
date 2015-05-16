@@ -18,18 +18,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * 图片工具
- * 
- * <pre>
- * Title: ImageUtil.java
- * Description: ImageUtil
- * Copyright: Copyright(c) 2013，保留所有权利。
- * Company: 班班通（天津）科技发展有限公司
- * ======================== change log ==========================
- * 2014-9-17 12:03:39 Create File
- * ======================== change log ==========================
- * </pre>
- * @author MXD
- * @date 2014-9-17
  */
 public class ImageTool {
 
