@@ -11,6 +11,43 @@ public class DateTimeTool {
 	private static final String TIME = "HH:mm";
 	private static final long ONE_DAT_MILLIS = 1000 * 60 * 60 * 24;
 
+	private static final SimpleDateFormat SD_DATE = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat SD_DATETIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	/**
+	 * String(yyyy-MM-dd) to Date
+	 */
+	public static Date parseDate(String source) {
+		try {
+			return SD_DATE.parse(source);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
+	 * String(yyyy-MM-dd HH:mm:ss) to Date
+	 */
+	public static Date parseDateTime(String source) {
+		try {
+			return SD_DATETIME.parse(source);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
+	 * String to Date
+	 */
+	public static Date parseDateTime(String source, String format) {
+		try {
+			SimpleDateFormat sd = new SimpleDateFormat(format);
+			return sd.parse(source);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	/**
 	 * yyyy-MM-dd
 	 */
@@ -226,6 +263,7 @@ public class DateTimeTool {
 	 * 2000-01-01 ~ 2000-01-01 = 1
 	 * 2000-01-01 ~ 2000-01-02 = 2
 	 * </pre>
+	 * 
 	 * @param begin 开始日期的时间戳
 	 * @param end 截至日期的时间戳
 	 * @param includEndDate 是否包含截至日期
