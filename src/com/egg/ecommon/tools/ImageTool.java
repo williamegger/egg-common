@@ -67,7 +67,7 @@ public class ImageTool {
 			logE(".cropSquare() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ImageTool {
 			logE(".crop() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -171,7 +171,7 @@ public class ImageTool {
 			logE(".zoomFix() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -217,7 +217,7 @@ public class ImageTool {
 			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -246,7 +246,7 @@ public class ImageTool {
 			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -254,12 +254,14 @@ public class ImageTool {
 	 * 得到扩展名：.jpg, .png 等
 	 */
 	public static String ext(String filename) {
-		try {
-			int ind = filename.lastIndexOf(".");
-			return filename.substring(ind).toLowerCase();
-		} catch (Exception e) {
+		if (filename == null || filename.isEmpty()) {
 			return "";
 		}
+		int ind = filename.lastIndexOf(".");
+		if (ind == -1) {
+			return "";
+		}
+		return filename.substring(ind).toLowerCase();
 	}
 
 	/**
@@ -277,14 +279,16 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(out);
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(out);
+			FileTool.quicklyClose(in);
 		}
 	}
 
-	// ============================================================== private static method
+	// ============================================================== private
+	// static method
 	/**
 	 * 保存缩放图片
+	 * 
 	 * @param image 原图
 	 * @param file 保存
 	 * @param w 宽

@@ -44,8 +44,8 @@ public class FileTool {
 			LOG.error(FileTool.class + ".save():保存文件方法异常:", e);
 			return false;
 		} finally {
-			FileTool.closeQuickly(out);
-			FileTool.closeQuickly(in);
+			FileTool.quicklyClose(out);
+			FileTool.quicklyClose(in);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class FileTool {
 	/**
 	 * 快速关闭
 	 */
-	public static void closeQuickly(Closeable obj) {
+	public static void quicklyClose(Closeable obj) {
 		if (obj != null) {
 			try {
 				obj.close();
@@ -90,6 +90,20 @@ public class FileTool {
 			return true;
 		}
 		return dir.mkdirs();
+	}
+
+	/**
+	 * 得到扩展名：.xxx
+	 */
+	public static String ext(String filename) {
+		if (filename == null || filename.isEmpty()) {
+			return "";
+		}
+		int ind = filename.lastIndexOf(".");
+		if (ind == -1) {
+			return "";
+		}
+		return filename.substring(ind).toLowerCase();
 	}
 
 }
