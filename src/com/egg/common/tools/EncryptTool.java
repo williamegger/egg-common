@@ -1,4 +1,4 @@
-package com.egg.ecommon.tools;
+package com.egg.common.tools;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;

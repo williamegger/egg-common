@@ -1,4 +1,4 @@
-package com.egg.ecommon.tools;
+package com.egg.common.tools;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

@@ -1,4 +1,4 @@
-package com.egg.ecommon.scheduler;
+package com.egg.common.scheduler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

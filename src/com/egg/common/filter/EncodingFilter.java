@@ -1,4 +1,4 @@
-package com.egg.ecommon.filter;
+package com.egg.common.filter;
 
 import java.io.IOException;
 

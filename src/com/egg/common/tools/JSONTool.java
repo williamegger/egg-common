@@ -1,4 +1,4 @@
-package com.egg.ecommon.tools;
+package com.egg.common.tools;
 
 import org.apache.commons.lang.math.NumberUtils;
 
