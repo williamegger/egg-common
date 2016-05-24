@@ -1,4 +1,4 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -11,14 +11,14 @@ import javax.crypto.spec.DESKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public enum EncryptTool {
+public enum EncryptUtil {
 	INSTANCE;
 
 	public static final String PASSWORD_KEY = "zxc!23";
-	private static final Log LOG = LogFactory.getLog(EncryptTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(EncryptUtil.class);
 
 	/**
 	 * 加密登录密码
@@ -54,7 +54,7 @@ public enum EncryptTool {
 			byte[] bs = str.getBytes("UTF-8");
 			return md5(bs);
 		} catch (Exception e) {
-			LOG.error(EncryptTool.class + ":.md5():方法出现异常:" + e.getMessage(), e);
+			LOG.error(EncryptUtil.class + ":.md5():方法出现异常:" + e.getMessage(), e);
 			return "";
 		}
 	}
@@ -74,7 +74,7 @@ public enum EncryptTool {
 			byte[] digest = md.digest();
 			return Hex.encodeHexString(digest).toLowerCase();
 		} catch (Exception e) {
-			LOG.error(EncryptTool.class + ":.md5():方法出现异常:" + e.getMessage(), e);
+			LOG.error(EncryptUtil.class + ":.md5():方法出现异常:" + e.getMessage(), e);
 			return "";
 		}
 	}
@@ -104,7 +104,7 @@ public enum EncryptTool {
 			byte[] bs = cipher.doFinal(str.getBytes("UTF-8"));
 			return Base64.encodeBase64String(bs).trim();
 		} catch (Exception e) {
-			LOG.error(EncryptTool.class + ".encodeDES():方法出现异常:" + e.getMessage(), e);
+			LOG.error(EncryptUtil.class + ".encodeDES():方法出现异常:" + e.getMessage(), e);
 			return "";
 		}
 	}
@@ -134,7 +134,7 @@ public enum EncryptTool {
 			byte[] bs = cipher.doFinal(Base64.decodeBase64(str));
 			return new String(bs, "UTF-8");
 		} catch (Exception e) {
-			LOG.error(EncryptTool.class + ".decodeDES():方法出现异常:" + e.getMessage(), e);
+			LOG.error(EncryptUtil.class + ".decodeDES():方法出现异常:" + e.getMessage(), e);
 			return "";
 		}
 	}
@@ -146,7 +146,7 @@ public enum EncryptTool {
 			byte[] digest = md.digest();
 			return Hex.encodeHexString(digest).toLowerCase();
 		} catch (Exception e) {
-			LOG.error(EncryptTool.class + ".sha1():方法出现异常:" + e.getMessage(), e);
+			LOG.error(EncryptUtil.class + ".sha1():方法出现异常:" + e.getMessage(), e);
 			return "";
 		}
 	}

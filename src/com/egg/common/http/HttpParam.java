@@ -1,14 +1,14 @@
-package com.egg.common.tools;
+package com.egg.common.http;
 
-public class URLParam {
+public class HttpParam {
 
 	private String key;
 	private String value;
 
-	public URLParam() {
+	public HttpParam() {
 	}
 
-	public URLParam(String key, String value) {
+	public HttpParam(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}

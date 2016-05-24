@@ -1,4 +1,4 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -13,15 +13,15 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 图片工具
  */
-public class ImageTool {
+public class ImageUtil {
 
-	private static final Log LOG = LogFactory.getLog(ImageTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ImageUtil.class);
 
 	public static final String[] IMG_EXTS = { ".jpg", ".png", ".gif", ".bmp" };
 
@@ -67,7 +67,7 @@ public class ImageTool {
 			logE(".cropSquare() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ImageTool {
 			logE(".crop() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -171,7 +171,7 @@ public class ImageTool {
 			logE(".zoomFix() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -217,7 +217,7 @@ public class ImageTool {
 			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -246,7 +246,7 @@ public class ImageTool {
 			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -279,8 +279,8 @@ public class ImageTool {
 			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(out);
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(out);
+			FileUtil.quicklyClose(in);
 		}
 	}
 
@@ -304,7 +304,7 @@ public class ImageTool {
 			return false;
 		}
 		File file = new File(filepath);
-		if (!FileTool.mkdirs(file)) {
+		if (!FileUtil.mkdirs(file)) {
 			return false;
 		}
 
@@ -339,7 +339,7 @@ public class ImageTool {
 	}
 
 	private static void logE(String msg, Throwable e) {
-		LOG.error(ImageTool.class + msg, e);
+		LOG.error(ImageUtil.class + msg, e);
 	}
 
 }

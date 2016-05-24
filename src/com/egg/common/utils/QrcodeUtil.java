@@ -1,4 +1,4 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -11,8 +11,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -20,7 +20,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-public class QrcodeTool {
+public class QrcodeUtil {
 	
 	private static final int BLACK = 0xFF000000;
 	private static final int WHITE = 0xFFFFFFFF;
@@ -33,7 +33,7 @@ public class QrcodeTool {
 			BitMatrix bitMatrix = getQRBitMatrix(content, width, height, ErrorCorrectionLevel.M);
 			writeToStream(bitMatrix, "jpg", out);
 		} catch (Exception e) {
-			LOG.error(QrcodeTool.class + ".buildQRCode():", e);
+			LOG.error(QrcodeUtil.class + ".buildQRCode():", e);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class QrcodeTool {
 			try {
 				logo = ImageIO.read(new File(logopath));
 			} catch (Exception e) {
-				LOG.error(QrcodeTool.class + ".buildQRCode4LOGO():", e);
+				LOG.error(QrcodeUtil.class + ".buildQRCode4LOGO():", e);
 			}
 		}
 
@@ -65,7 +65,7 @@ public class QrcodeTool {
 
 				ImageIO.write(qrImg, "jpg", out);
 			} catch (Exception e) {
-				LOG.error(QrcodeTool.class + ".buildQRCode4LOGO():", e);
+				LOG.error(QrcodeUtil.class + ".buildQRCode4LOGO():", e);
 			}
 		}
 	}
@@ -110,5 +110,5 @@ public class QrcodeTool {
 		}
 	}
 
-	private static final Log LOG = LogFactory.getLog(QrcodeTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(QrcodeUtil.class);
 }

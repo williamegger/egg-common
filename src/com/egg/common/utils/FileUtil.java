@@ -1,4 +1,4 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 /**
  * 文件工具类
@@ -12,12 +12,12 @@ import java.io.OutputStream;
 
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class FileTool {
+public class FileUtil {
 
-	private static final Log LOG = LogFactory.getLog(FileTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * 保存文件
@@ -32,20 +32,20 @@ public class FileTool {
 		OutputStream out = null;
 		try {
 			File file = new File(target);
-			boolean b = FileTool.mkdirs(file);
+			boolean b = FileUtil.mkdirs(file);
 			if (!b) {
-				LOG.error(FileTool.class + ".save():创建文件夹失败 [" + file.getParentFile().getPath() + "]");
+				LOG.error(FileUtil.class + ".save():创建文件夹失败 [" + file.getParentFile().getPath() + "]");
 				return false;
 			}
 			out = new FileOutputStream(file);
 			Streams.copy(in, out, false);
 			return true;
 		} catch (Exception e) {
-			LOG.error(FileTool.class + ".save():保存文件方法异常:", e);
+			LOG.error(FileUtil.class + ".save():保存文件方法异常:", e);
 			return false;
 		} finally {
-			FileTool.quicklyClose(out);
-			FileTool.quicklyClose(in);
+			FileUtil.quicklyClose(out);
+			FileUtil.quicklyClose(in);
 		}
 	}
 

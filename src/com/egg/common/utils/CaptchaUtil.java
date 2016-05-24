@@ -1,26 +1,28 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-public class CaptchaTool {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class CaptchaUtil {
 
 	public static final String CHECK_CODE = "Check_Code";
-	private static CaptchaTool instance = null;
+	private static CaptchaUtil instance = null;
 
-	public static synchronized CaptchaTool getInstance() {
+	public static synchronized CaptchaUtil getInstance() {
 		if (null == instance) {
-			instance = new CaptchaTool();
+			instance = new CaptchaUtil();
 		}
 		return instance;
 	}
@@ -100,7 +102,7 @@ public class CaptchaTool {
 			ImageIO.setUseCache(false); // 禁止写磁盘缓存文件。去掉这一句可能会造成打开缓存文件不能被释放。
 			ImageIO.write(image, "jpeg", sos);
 		} catch (Exception e) {
-			LOG.error(CaptchaTool.class + ": buildCaptcha(): 出现异常: ", e);
+			LOG.error(CaptchaUtil.class + ": buildCaptcha(): 出现异常: ", e);
 		} finally {
 			try {
 				image.flush();
@@ -109,7 +111,7 @@ public class CaptchaTool {
 					sos.close();
 				}
 			} catch (Exception ex) {
-				LOG.error(CaptchaTool.class + ": buildCaptcha(): 关闭资源时出现异常: ", ex);
+				LOG.error(CaptchaUtil.class + ": buildCaptcha(): 关闭资源时出现异常: ", ex);
 			}
 		}
 	}
@@ -142,5 +144,5 @@ public class CaptchaTool {
 		return new Color(r, g, b);
 	}
 
-	private static final Log LOG = LogFactory.getLog(CaptchaTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CaptchaUtil.class);
 }

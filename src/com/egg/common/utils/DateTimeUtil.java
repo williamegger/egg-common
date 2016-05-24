@@ -1,10 +1,10 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateTimeTool {
+public class DateTimeUtil {
 
 	private static final String DATE = "yyyy-MM-dd";
 	private static final String DATETIME = "yyyy-MM-dd HH:mm";

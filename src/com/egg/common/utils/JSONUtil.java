@@ -1,11 +1,11 @@
-package com.egg.common.tools;
+package com.egg.common.utils;
 
 import org.apache.commons.lang.math.NumberUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-public class JSONTool {
+public class JSONUtil {
 
 	public static String get(JSONObject json, String name, String def) {
 		if (json.containsKey(name)) {

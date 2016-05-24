@@ -10,12 +10,12 @@ import java.util.TimerTask;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ScheduleListener implements ServletContextListener {
 
-	private static final Log LOG = LogFactory.getLog(ScheduleListener.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ScheduleListener.class);
 	private static final long NO_DELAY = 0; // 无延时
 	private static final long MILLI_DAY = 1000 * 60 * 60 * 24; // 一天的毫秒数
 
