@@ -11,9 +11,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import com.egg.common.log.LogKit;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -21,7 +20,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QrcodeUtil {
-	
+
 	private static final int BLACK = 0xFF000000;
 	private static final int WHITE = 0xFFFFFFFF;
 
@@ -33,7 +32,7 @@ public class QrcodeUtil {
 			BitMatrix bitMatrix = getQRBitMatrix(content, width, height, ErrorCorrectionLevel.M);
 			writeToStream(bitMatrix, "jpg", out);
 		} catch (Exception e) {
-			LOG.error(QrcodeUtil.class + ".buildQRCode():", e);
+			LogKit.error(".buildQRCode():", e);
 		}
 	}
 
@@ -46,7 +45,7 @@ public class QrcodeUtil {
 			try {
 				logo = ImageIO.read(new File(logopath));
 			} catch (Exception e) {
-				LOG.error(QrcodeUtil.class + ".buildQRCode4LOGO():", e);
+				LogKit.error(".buildQRCode4LOGO():", e);
 			}
 		}
 
@@ -65,15 +64,16 @@ public class QrcodeUtil {
 
 				ImageIO.write(qrImg, "jpg", out);
 			} catch (Exception e) {
-				LOG.error(QrcodeUtil.class + ".buildQRCode4LOGO():", e);
+				LogKit.error(".buildQRCode4LOGO():", e);
 			}
 		}
 	}
 
-	// ------------
-	// private
-	// ------------
-	private static BitMatrix getQRBitMatrix(String content, int width, int height, ErrorCorrectionLevel level) throws Exception {
+	// ==============
+	// private method
+	// ==============
+	private static BitMatrix getQRBitMatrix(String content, int width, int height, ErrorCorrectionLevel level)
+			throws Exception {
 		Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
 		hints.put(EncodeHintType.ERROR_CORRECTION, level);
 		hints.put(EncodeHintType.MARGIN, 1);
@@ -110,5 +110,4 @@ public class QrcodeUtil {
 		}
 	}
 
-	private static final Logger LOG = LoggerFactory.getLogger(QrcodeUtil.class);
 }

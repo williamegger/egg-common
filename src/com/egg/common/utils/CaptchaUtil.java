@@ -12,22 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.egg.common.log.LogKit;
 
 public class CaptchaUtil {
 
-	public static final String CHECK_CODE = "Check_Code";
-	private static CaptchaUtil instance = null;
+	public static final String CHECK_CODE = "_CHECK_CODE_";
 
-	public static synchronized CaptchaUtil getInstance() {
-		if (null == instance) {
-			instance = new CaptchaUtil();
-		}
-		return instance;
-	}
-
-	public void buildCaptcha(HttpServletRequest request, HttpServletResponse response) {
+	/**
+	 * 创建验证码
+	 */
+	public static void buildCaptcha(HttpServletRequest request, HttpServletResponse response) {
 		int width = 85;
 		int height = 24;
 
@@ -74,8 +68,7 @@ public class CaptchaUtil {
 		// 用随机产生的颜色将验证码绘制到图像中。
 		// 生成随机颜色(因为是做前景，所以偏深)
 		// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
-		g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random
-				.nextInt(110)));
+		g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
 		for (int i = 0; i < length; i++) {
 			String ch = String.valueOf(s.charAt(random.nextInt(s.length())));
 			sRand += ch;
@@ -102,7 +95,7 @@ public class CaptchaUtil {
 			ImageIO.setUseCache(false); // 禁止写磁盘缓存文件。去掉这一句可能会造成打开缓存文件不能被释放。
 			ImageIO.write(image, "jpeg", sos);
 		} catch (Exception e) {
-			LOG.error(CaptchaUtil.class + ": buildCaptcha(): 出现异常: ", e);
+			LogKit.error("输出验证码出现异常: ", e);
 		} finally {
 			try {
 				image.flush();
@@ -111,12 +104,15 @@ public class CaptchaUtil {
 					sos.close();
 				}
 			} catch (Exception ex) {
-				LOG.error(CaptchaUtil.class + ": buildCaptcha(): 关闭资源时出现异常: ", ex);
+				LogKit.error("关闭资源时出现异常", ex);
 			}
 		}
 	}
 
-	public String getCaptcha(HttpSession session) {
+	/**
+	 * 得到验证码
+	 */
+	public static String getCaptcha(HttpSession session) {
 		if (null == session) {
 			return null;
 		}
@@ -124,7 +120,21 @@ public class CaptchaUtil {
 		return (null == checkCode) ? null : checkCode.toString();
 	}
 
-	private Color getRandColor(int lower, int upper) {
+	/**
+	 * 验证传入的验证码
+	 */
+	public static boolean verifyCaptcha(HttpSession session, String code) {
+		if (code == null || code.isEmpty()) {
+			return false;
+		}
+		String captcha = getCaptcha(session);
+		if (captcha == null || captcha.isEmpty()) {
+			return false;
+		}
+		return captcha.equalsIgnoreCase(code);
+	}
+
+	private static Color getRandColor(int lower, int upper) {
 		Random random = new Random();
 		if (upper > 255) {
 			upper = 255;
@@ -144,5 +154,4 @@ public class CaptchaUtil {
 		return new Color(r, g, b);
 	}
 
-	private static final Logger LOG = LoggerFactory.getLogger(CaptchaUtil.class);
 }

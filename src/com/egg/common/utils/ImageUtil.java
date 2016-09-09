@@ -13,15 +13,13 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.egg.common.log.LogKit;
 
 /**
  * 图片工具
  */
 public class ImageUtil {
-
-	private static final Logger LOG = LoggerFactory.getLogger(ImageUtil.class);
 
 	public static final String[] IMG_EXTS = { ".jpg", ".png", ".gif", ".bmp" };
 
@@ -64,7 +62,7 @@ public class ImageUtil {
 			// 保存图片
 			return saveScaleImage(cropImg, filepath, zoomValue, zoomValue);
 		} catch (Exception e) {
-			logE(".cropSquare() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".cropSquare() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -82,7 +80,7 @@ public class ImageUtil {
 			BufferedImage img = ImageIO.read(in);
 			return crop(img, filepath, x1, y1, w, h, nW, nH);
 		} catch (Exception e) {
-			logE(".crop() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".crop() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -118,7 +116,7 @@ public class ImageUtil {
 			// 保存图片
 			return saveScaleImage(cropImg, filepath, nW, nH);
 		} catch (Exception e) {
-			logE(".crop() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".crop() : 方法出现异常 : ", e);
 			return false;
 		}
 	}
@@ -132,7 +130,7 @@ public class ImageUtil {
 			in = new FileInputStream(filepath);
 			return zoom(in, savepath, width, height);
 		} catch (Exception e) {
-			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".zoom() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -150,7 +148,7 @@ public class ImageUtil {
 			BufferedImage img = ImageIO.read(in);
 			return zoom(img, filepath, width, height, false);
 		} catch (Exception e) {
-			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".zoom() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -168,7 +166,7 @@ public class ImageUtil {
 			BufferedImage img = ImageIO.read(in);
 			return zoom(img, filepath, width, height, true);
 		} catch (Exception e) {
-			logE(".zoomFix() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".zoomFix() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -203,7 +201,7 @@ public class ImageUtil {
 			// 保存图片
 			return saveScaleImage(img, filepath, width, height);
 		} catch (Exception e) {
-			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".zoom() : 方法出现异常 : ", e);
 			return false;
 		}
 	}
@@ -214,7 +212,7 @@ public class ImageUtil {
 			in = new FileInputStream(filePath);
 			return enlarge(in, savePath, min);
 		} catch (Exception e) {
-			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".enlarge() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -243,7 +241,7 @@ public class ImageUtil {
 			// 保存图片
 			return saveScaleImage(img, savePath, toWidth, toHeight);
 		} catch (Exception e) {
-			logE(".enlarge() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".enlarge() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(in);
@@ -276,7 +274,7 @@ public class ImageUtil {
 			BufferedImage img = ImageIO.read(in);
 			return saveScaleImage(img, filepath, img.getWidth(), img.getHeight());
 		} catch (Exception e) {
-			logE(".zoom() : 方法出现异常 : " + e.getMessage(), e);
+			LogKit.error(".savePNG() : 方法出现异常 : ", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(out);
@@ -284,8 +282,9 @@ public class ImageUtil {
 		}
 	}
 
-	// ============================================================== private
-	// static method
+	// ==============
+	// private method
+	// ==============
 	/**
 	 * 保存缩放图片
 	 * 
@@ -336,10 +335,6 @@ public class ImageUtil {
 		} catch (Exception e) {
 			return "";
 		}
-	}
-
-	private static void logE(String msg, Throwable e) {
-		LOG.error(ImageUtil.class + msg, e);
 	}
 
 }

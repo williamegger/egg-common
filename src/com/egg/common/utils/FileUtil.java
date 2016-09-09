@@ -12,12 +12,10 @@ import java.io.OutputStream;
 
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.egg.common.log.LogKit;
 
 public class FileUtil {
-
-	private static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * 保存文件
@@ -34,14 +32,14 @@ public class FileUtil {
 			File file = new File(target);
 			boolean b = FileUtil.mkdirs(file);
 			if (!b) {
-				LOG.error(FileUtil.class + ".save():创建文件夹失败 [" + file.getParentFile().getPath() + "]");
+				LogKit.error(FileUtil.class + ".save():创建文件夹失败 [" + file.getParentFile().getPath() + "]");
 				return false;
 			}
 			out = new FileOutputStream(file);
 			Streams.copy(in, out, false);
 			return true;
 		} catch (Exception e) {
-			LOG.error(FileUtil.class + ".save():保存文件方法异常:", e);
+			LogKit.error(FileUtil.class + ".save():保存文件方法异常:", e);
 			return false;
 		} finally {
 			FileUtil.quicklyClose(out);

@@ -14,12 +14,10 @@ import java.util.Set;
 
 import javax.activation.MimetypesFileTypeMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.egg.common.log.LogKit;
 
 public class HttpUtil {
 
-	private static final Logger LOG = LoggerFactory.getLogger(HttpUtil.class);
 	private static final String UTF8 = "UTF-8";
 	private static final String GET = "GET";
 	private static final String POST = "POST";
@@ -69,14 +67,14 @@ public class HttpUtil {
 			}
 			return sb.toString();
 		} catch (Exception e) {
-			LOG.error(".get():方法异常:", e);
+			LogKit.error(".get():方法异常:", e);
 			return "";
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					LOG.error(".get():关闭BufferedReader方法异常:", e);
+					LogKit.error(".get():关闭BufferedReader方法异常:", e);
 				}
 			}
 			if (isOpened) {
@@ -124,14 +122,14 @@ public class HttpUtil {
 			}
 			return sb.toString();
 		} catch (Exception e) {
-			LOG.error(".post():方法异常:", e);
+			LogKit.error(".post():方法异常:", e);
 			return "";
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					LOG.error(".post():关闭BufferedReader方法异常:", e);
+					LogKit.error(".post():关闭BufferedReader方法异常:", e);
 				}
 			}
 			if (isOpened) {
@@ -178,14 +176,14 @@ public class HttpUtil {
 			}
 			return sb.toString();
 		} catch (Exception e) {
-			LOG.error(".post():方法异常:", e);
+			LogKit.error(".post():方法异常:", e);
 			return "";
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					LOG.error(".post():关闭BufferedReader方法异常:", e);
+					LogKit.error(".post():关闭BufferedReader方法异常:", e);
 				}
 			}
 			if (isOpened) {
@@ -268,14 +266,14 @@ public class HttpUtil {
 			}
 			return sb.toString();
 		} catch (Exception e) {
-			LOG.error(".upload():方法异常:", e);
+			LogKit.error(".upload():方法异常:", e);
 			return "";
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					LOG.error(".upload():关闭BufferedReader方法异常:", e);
+					LogKit.error(".upload():关闭BufferedReader方法异常:", e);
 				}
 			}
 			if (isOpened) {
