@@ -9,7 +9,7 @@ public class DateTimeUtil {
 	private static final String DATE = "yyyy-MM-dd";
 	private static final String DATETIME = "yyyy-MM-dd HH:mm";
 	private static final String TIME = "HH:mm";
-	private static final long ONE_DAT_MILLIS = 1000 * 60 * 60 * 24;
+	private static final long ONE_DAY_MILLIS = 1000 * 60 * 60 * 24;
 
 	private static final SimpleDateFormat SD_DATE = new SimpleDateFormat("yyyy-MM-dd");
 	private static final SimpleDateFormat SD_DATETIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -269,7 +269,7 @@ public class DateTimeUtil {
 	 * @param includEndDate 是否包含截至日期
 	 */
 	public static int days(long begin, long end, boolean includEndDate) {
-		int days = (int) Math.abs((begin / ONE_DAT_MILLIS) - (end / ONE_DAT_MILLIS));
+		int days = (int) Math.abs((begin / ONE_DAY_MILLIS) - (end / ONE_DAY_MILLIS));
 		return includEndDate ? days + 1 : days;
 	}
 }

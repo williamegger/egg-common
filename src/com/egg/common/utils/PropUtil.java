@@ -15,20 +15,24 @@ public class PropUtil {
 	/**
 	 * 加载资源文件
 	 */
-	public static synchronized void load(String name) {
+	public static synchronized boolean load(String name) {
 		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException("加载资源文件错误，文件名称为空");
+			LogKit.error("加载资源文件错误，文件名称为空");
+			return false;
 		}
 		InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
 		if (in == null) {
-			throw new IllegalArgumentException("加载资源文件错误，文件不存在[" + name + "]");
+			LogKit.error("加载资源文件错误，文件不存在[" + name + "]");
+			return false;
 		}
 
 		try {
 			props = new Properties();
 			props.load(in);
+			return true;
 		} catch (Exception e) {
 			LogKit.error("加载资源文件异常[" + name + "]", e);
+			return false;
 		} finally {
 			try {
 				in.close();
