@@ -2,7 +2,6 @@
     <wb-module deploy-name="egg-common">
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="egg-common"/>
         <property name="java-output-path" value="/egg-common/web/WEB-INF/classes"/>
     </wb-module>
