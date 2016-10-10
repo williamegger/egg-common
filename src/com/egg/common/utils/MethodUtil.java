@@ -28,7 +28,7 @@ public class MethodUtil {
 		}
 	}
 
-	public static Object invokeJoinpoint(Object target, Method method, Object[] args) throws Exception {
+	public static Object invoke(Object target, Method method, Object[] args) throws Exception {
 		makeAccessible(method);
 		return method.invoke(target, args);
 	}
