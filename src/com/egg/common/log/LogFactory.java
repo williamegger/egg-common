@@ -1,5 +1,7 @@
 package com.egg.common.log;
 
+import java.lang.reflect.Modifier;
+
 import com.egg.common.log.support.SLF4JLog;
 
 public class LogFactory {
@@ -15,6 +17,24 @@ public class LogFactory {
 			}
 		}
 		return LOG;
+	}
+
+	public static void setLog(String className) {
+		try {
+			if (className == null || className.isEmpty()) {
+				return;
+			}
+			Class<?> logImplClass = Class.forName(className);
+			int mod = logImplClass.getModifiers();
+			if(Modifier.isPublic(mod)
+					&& !Modifier.isAbstract(mod)
+					&& !Modifier.isInterface(mod)
+					&& Log.class.isAssignableFrom(logImplClass)) {
+				setLog((Log)logImplClass.newInstance());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void setLog(Log log) {

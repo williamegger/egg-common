@@ -1,6 +1,5 @@
 package com.egg.common.utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -29,16 +28,8 @@ public class MethodUtil {
 		}
 	}
 
-	public static Object invokeJoinpoint(Object target, Method method, Object[] args) throws Throwable {
-		try {
-			makeAccessible(method);
-			return method.invoke(target, args);
-		} catch (InvocationTargetException e) {
-			return e.getTargetException();
-		} catch (IllegalAccessException e) {
-			return new Throwable(e.getMessage());
-		} catch (IllegalArgumentException e) {
-			return new Throwable(e.getMessage());
-		}
+	public static Object invokeJoinpoint(Object target, Method method, Object[] args) throws Exception {
+		makeAccessible(method);
+		return method.invoke(target, args);
 	}
 }
