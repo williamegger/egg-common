@@ -39,7 +39,7 @@ public class DateTimeUtil {
 	/**
 	 * String to Date
 	 */
-	public static Date parseDateTime(String source, String format) {
+	public static Date parse(String source, String format) {
 		try {
 			SimpleDateFormat sd = new SimpleDateFormat(format);
 			return sd.parse(source);

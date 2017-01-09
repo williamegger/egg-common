@@ -17,20 +17,10 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.egg.common.log.LogKit;
 
 public class HttpUtil {
 
-	public static void main(String[] args) {
-		String urlStr = "https://192.168.0.163/zhibo/admin.jsf";
-		List<HttpParam> params = null;
-		Map<String, String> headers = null;
-		String res = HttpUtil.get(urlStr, params, headers);
-		System.out.println(res);
-	}
-
-	private static final Logger LOG = LoggerFactory.getLogger(HttpUtil.class);
 	static final String UTF8 = "UTF-8";
 	private static final String GET = "GET";
 	private static final String POST = "POST";
@@ -55,7 +45,7 @@ public class HttpUtil {
 			RespRes res = doReq(urlStr, GET, headers, null);
 			return res.toStr(UTF8);
 		} catch (Exception e) {
-			LOG.error(".get():方法异常:", e);
+			LogKit.error(".get():方法异常:", e);
 			return "";
 		}
 	}
@@ -66,7 +56,7 @@ public class HttpUtil {
 			RespRes res = doReq(urlStr, POST, headers, body, UTF8);
 			return res.toStr(UTF8);
 		} catch (Exception e) {
-			LOG.error(".post():方法异常:", e);
+			LogKit.error(".post():方法异常:", e);
 			return "";
 		}
 	}
@@ -76,12 +66,13 @@ public class HttpUtil {
 			RespRes res = doReq(urlStr, POST, headers, dataStr, UTF8);
 			return res.toStr(UTF8);
 		} catch (Exception e) {
-			LOG.error(".post():方法异常:", e);
+			LogKit.error(".post():方法异常:", e);
 			return "";
 		}
 	}
 
-	public static String upload(String urlStr, List<HttpParam> params, List<HttpFile> files, Map<String, String> headers) {
+	public static String upload(String urlStr, List<HttpParam> params, List<HttpFile> files,
+			Map<String, String> headers) {
 		try {
 			if (headers == null) {
 				headers = new HashMap<String, String>();
@@ -93,7 +84,7 @@ public class HttpUtil {
 			RespRes res = doReq(urlStr, POST, headers, body);
 			return res.toStr(UTF8);
 		} catch (Exception e) {
-			LOG.error(".upload():方法异常:", e);
+			LogKit.error(".upload():方法异常:", e);
 			return "";
 		}
 	}
@@ -194,7 +185,7 @@ public class HttpUtil {
 			}
 			res.setRes(out.toByteArray());
 		} catch (Exception e) {
-			LOG.error(".conn():方法异常:", e);
+			LogKit.error(".conn():方法异常:", e);
 		} finally {
 			if (out != null) {
 				try {
@@ -255,8 +246,8 @@ public class HttpUtil {
 		return sb.toString();
 	}
 
-	private static byte[] buildUploadBody(List<HttpParam> params, List<HttpFile> files, String encoding, String boundary)
-			throws IOException {
+	private static byte[] buildUploadBody(List<HttpParam> params, List<HttpFile> files, String encoding,
+			String boundary) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 		StringBuilder sb;

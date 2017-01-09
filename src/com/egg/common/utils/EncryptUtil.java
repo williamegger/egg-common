@@ -22,7 +22,7 @@ public class EncryptUtil {
 	 * @param passwd 密码明文
 	 * @return md5(md5(passwd) + PASSWORD_KEY);
 	 */
-	public static String encryptPasswd(String passwd) {
+	public static String passwd(String passwd) {
 		if (null == passwd) {
 			return "";
 		}
@@ -35,7 +35,7 @@ public class EncryptUtil {
 	 * @param encryptPwd 加密密码
 	 */
 	public static boolean verifyPasswd(String passwd, String encryptPwd) {
-		String password = encryptPasswd(passwd);
+		String password = passwd(passwd);
 		if (password == null || password.isEmpty()) {
 			return false;
 		}
