@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.net.JarURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -64,30 +65,34 @@ public class ScanUtil {
 	}
 
 	/**
-	 * 扫描类
-	 */
-	public static List<Class<?>> scan(String packageName, ClassFilter filter) throws IOException {
-		List<Class<?>> result = new ArrayList<Class<?>>();
+     * 扫描类
+     */
+    public static List<Class<?>> scan(String packageName, ClassFilter filter) throws IOException {
+        List<Class<?>> result = new ArrayList<Class<?>>();
 
-		Enumeration<URL> urls = Thread.currentThread().getContextClassLoader()
-				.getResources(packageName.replaceAll("\\.", "/"));
-		if (urls != null) {
-			URL url = null;
-			while (urls.hasMoreElements()) {
-				url = (URL) urls.nextElement();
-				
-				if ("file".equals(url.getProtocol())) {
-					loadClass(result, new File(url.getPath()), packageName, filter);
-				} else if ("jar".equals(url.getProtocol())) {
-					JarURLConnection conn = (JarURLConnection) url.openConnection();
-					JarFile jarFile = conn.getJarFile();
-					loadClass(result, jarFile, packageName, filter);
-				}
-			}
-		}
+        Enumeration<URL> urls = Thread.currentThread().getContextClassLoader()
+                .getResources(packageName.replaceAll("\\.", "/"));
+        if (urls != null) {
+            URL url = null;
+            while (urls.hasMoreElements()) {
+                url = (URL) urls.nextElement();
 
-		return result;
-	}
+                if ("file".equals(url.getProtocol())) {
+                    try {
+                        loadClass(result, new File(new URI(url.getPath()).getPath()), packageName, filter);
+                    } catch (Exception e) {
+                        LogKit.error(null, e);
+                    }
+                } else if ("jar".equals(url.getProtocol())) {
+                    JarURLConnection conn = (JarURLConnection) url.openConnection();
+                    JarFile jarFile = conn.getJarFile();
+                    loadClass(result, jarFile, packageName, filter);
+                }
+            }
+        }
+
+        return result;
+    }
 
 	// ----------------------
 	// private method

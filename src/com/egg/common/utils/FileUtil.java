@@ -20,6 +20,42 @@ public class FileUtil {
 	private static final String LINE = "\r\n";
 
 	// ----------------------
+	// Copy Methods
+	// ----------------------
+	public static void copy(File from, File toDir) throws IOException {
+		if (!from.exists()) {
+			return;
+		}
+		if (!toDir.exists()) {
+			toDir.mkdirs();
+		}
+		if (from.isDirectory()) {
+			File[] files = from.listFiles();
+			if (files != null && files.length > 0) {
+				for (File file : files) {
+					if (file.isDirectory()) {
+						copy(file, new File(toDir, file.getName()));
+					} else {
+						copy(file, toDir);
+					}
+				}
+			}
+		} else {
+			copyFile(from, new File(toDir, from.getName()));
+		}
+	}
+
+	public static void copyFile(File from, File to) throws IOException {
+		InputStream in = null;
+		try {
+			in = new FileInputStream(from);
+			save(in, to);
+		} finally {
+			closeQuickly(in);
+		}
+	}
+
+	// ----------------------
 	// Save Methods
 	// ----------------------
 	public static long save(String str, String target) throws IOException {
