@@ -8,9 +8,9 @@ public class HttpParam {
 	public HttpParam() {
 	}
 
-	public HttpParam(String key, String value) {
+	public HttpParam(String key, Object value) {
 		this.key = key;
-		this.value = value;
+		this.value = (value == null) ? "" : String.valueOf(value);
 	}
 
 	public String getKey() {
