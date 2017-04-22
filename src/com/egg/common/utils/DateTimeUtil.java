@@ -272,4 +272,12 @@ public class DateTimeUtil {
 		int days = (int) Math.abs((begin / ONE_DAY_MILLIS) - (end / ONE_DAY_MILLIS));
 		return includEndDate ? days + 1 : days;
 	}
+	
+	/**
+	 * 返回yyyyMMdd的int类型
+	 */
+	public static int ymd(long times) {
+		String yyyyMMdd = format(times, "yyyyMMdd");
+		return Integer.parseInt(yyyyMMdd);
+	}
 }
